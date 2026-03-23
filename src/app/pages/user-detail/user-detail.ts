@@ -41,6 +41,13 @@ export class UserDetail implements OnInit {
     });
   }
 
+  goToEdit(): void {
+    if (!this.user) {
+      return;
+    }
+    void this.router.navigate(['/updateuser', userApiId(this.user)], { state: { user: this.user } });
+  }
+
   onDelete(): void {
     if (!this.user) {
       return;

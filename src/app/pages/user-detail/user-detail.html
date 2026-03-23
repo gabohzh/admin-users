@@ -47,7 +47,7 @@
                 </ul>
                 <div class="d-flex flex-wrap gap-2">
                   <a routerLink="/home" class="btn btn-outline-secondary">Volver al listado</a>
-                  <a class="btn btn-primary" [routerLink]="['/updateuser', userApiId(user)]">Actualizar</a>
+                  <button type="button" class="btn btn-primary" (click)="goToEdit()">Actualizar</button>
                   <button type="button" class="btn btn-outline-danger" (click)="onDelete()">Eliminar</button>
                 </div>
               </div>

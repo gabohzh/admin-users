@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { User, userApiId } from '../../models/user';
 import { UsersService } from '../../services/users.service';
@@ -14,6 +14,7 @@ import { UsersService } from '../../services/users.service';
 export class Home implements OnInit {
   protected readonly userApiId = userApiId;
 
+  private readonly router = inject(Router);
   private readonly usersService = inject(UsersService);
 
   users: User[] = [];
@@ -38,6 +39,11 @@ export class Home implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  goToEdit(user: User, event: Event): void {
+    event.preventDefault();
+    void this.router.navigate(['/updateuser', userApiId(user)], { state: { user } });
   }
 
   onDelete(user: User, event: Event): void {
