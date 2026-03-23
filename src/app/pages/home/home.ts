@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { User } from '../../models/user';
+import { User, userApiId } from '../../models/user';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -12,6 +12,8 @@ import { UsersService } from '../../services/users.service';
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
+  protected readonly userApiId = userApiId;
+
   private readonly usersService = inject(UsersService);
 
   users: User[] = [];
@@ -44,9 +46,9 @@ export class Home implements OnInit {
     if (!window.confirm(`¿Seguro que quieres eliminar al usuario ${label}?`)) {
       return;
     }
-    this.usersService.delete(user.id).subscribe({
+    this.usersService.delete(userApiId(user)).subscribe({
       next: () => {
-        this.users = this.users.filter((u) => u.id !== user.id);
+        this.users = this.users.filter((u) => userApiId(u) !== userApiId(user));
         window.alert('Solicitud enviada correctamente.');
       },
       error: (err: HttpErrorResponse) => {

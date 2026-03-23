@@ -1,3 +1,60 @@
-<div class="container">
-  <h1 class="h3 mb-3">Detalle de usuario</h1>
+<div class="container py-2">
+  @if (loading) {
+    <p class="text-muted">Cargando usuario…</p>
+  } @else if (errorMsg) {
+    <div class="alert alert-danger" role="alert">{{ errorMsg }}</div>
+    <a routerLink="/home" class="btn btn-outline-primary">Volver al listado</a>
+  } @else if (user) {
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-xl-8">
+        <div class="card shadow-sm border-0 overflow-hidden">
+          <div class="row g-0">
+            <div class="col-md-4 bg-light">
+              <img
+                [src]="user.image"
+                class="detail-photo w-100"
+                [alt]="'Foto de ' + user.first_name"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h1 class="h4 mb-3">{{ user.first_name }} {{ user.last_name }}</h1>
+                <ul class="list-group list-group-flush mb-4">
+                  <li class="list-group-item px-0 d-flex justify-content-between gap-2">
+                    <span class="text-muted">ID</span>
+                    <span>{{ user.id }}</span>
+                  </li>
+                  <li class="list-group-item px-0 d-flex justify-content-between gap-2">
+                    <span class="text-muted">Usuario</span>
+                    <span>{{ user.username }}</span>
+                  </li>
+                  <li class="list-group-item px-0 d-flex justify-content-between gap-2">
+                    <span class="text-muted">Correo</span>
+                    <span class="text-break text-end">{{ user.email }}</span>
+                  </li>
+                  @if (user.password) {
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2">
+                      <span class="text-muted">Contraseña</span>
+                      <span>********</span>
+                    </li>
+                  }
+                  <li class="list-group-item px-0">
+                    <span class="text-muted d-block mb-1">URL de imagen</span>
+                    <a [href]="user.image" target="_blank" rel="noopener noreferrer" class="small text-break">{{
+                      user.image
+                    }}</a>
+                  </li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                  <a routerLink="/home" class="btn btn-outline-secondary">Volver al listado</a>
+                  <a class="btn btn-primary" [routerLink]="['/updateuser', userApiId(user)]">Actualizar</a>
+                  <button type="button" class="btn btn-outline-danger" (click)="onDelete()">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

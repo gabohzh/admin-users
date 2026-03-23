@@ -1,0 +1,13 @@
+.detail-photo {
+  display: block;
+  min-height: 220px;
+  max-height: 360px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .detail-photo {
+    min-height: 100%;
+    max-height: none;
+  }
+}

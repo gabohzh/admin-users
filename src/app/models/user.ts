@@ -9,6 +9,13 @@ export interface User {
   password?: string;
 }
 
+export function userApiId(u: User): string {
+  if (u._id) {
+    return u._id;
+  }
+  return String(u.id);
+}
+
 export interface UsersListResponse {
   page: number;
   per_page: number;
